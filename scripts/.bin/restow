@@ -1,6 +1,7 @@
 #!/bin/bash
 
-DOTFILES_DIR="$HOME/.dotfiles"
+: ${DOTFILES_DIR:="$HOME/.dotfiles"}
+: ${EXCLUDE_DIRS:='.git'}
 
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
@@ -15,7 +16,7 @@ log_completed() {
 }
 
 do_stow() {
-  local -r STOW_DIRS=$(cd "${DOTFILES_DIR}" || return; ls -d */ | cut -f1 -d'/' | grep -v '.git')
+  local -r STOW_DIRS=$(cd "${DOTFILES_DIR}" || return; ls -d */ | cut -f1 -d'/' | grep -v "$EXCLUDE_DIRS")
 
   ! hash stow &>/dev/null && log_warning "stow is not installed" && return
 
