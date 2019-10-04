@@ -1,0 +1,29 @@
+#!/bin/bash
+
+DOTFILES_DIR="$HOME/.dotfiles"
+
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NO_COLOR='\033[0m'
+
+log_warning() {
+  (>&2 echo -e "${YELLOW}WARNING: $*${NO_COLOR}")
+}
+
+log_completed() {
+  (echo -e "${GREEN}COMPLETED: $*${NO_COLOR}")
+}
+
+do_stow() {
+  local -r STOW_DIRS=$(cd "${DOTFILES_DIR}" || return; ls -d */ | cut -f1 -d'/' | grep -v '.git')
+
+  ! hash stow &>/dev/null && log_warning "stow is not installed" && return
+
+  for dir in ${STOW_DIRS[*]}; do
+    stow -d "${DOTFILES_DIR}" --restow "${dir}"
+  done
+
+  log_completed "restow"
+}
+
+do_stow
