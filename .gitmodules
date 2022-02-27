@@ -1,0 +1,3 @@
+[submodule "includes/kitty-themes"]
+	path = includes/kitty-themes
+	url = https://github.com/dexpota/kitty-themes.git
