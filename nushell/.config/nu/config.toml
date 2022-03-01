@@ -4,6 +4,8 @@ startup = [
   "mkdir ~/.cache/starship",
   "starship init nu | save ~/.cache/starship/init.nu",
   "source ~/.cache/starship/init.nu",
+  "source ~/.config/nu/aliases.nu",
+  "source ~/.config/nu/liz.nu",
 ]
 
 prompt = "starship_prompt"
